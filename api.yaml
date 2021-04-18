@@ -1,0 +1,200 @@
+swagger: "2.0"
+info:
+  title: CoinLore
+  version: "1.0"
+  contact:
+    name: GY4EZ8
+host: api.coinlore.net
+schemes:
+  - https
+produces:
+  - application/json
+consumes:
+  - application/json
+paths:
+  /tickers/:
+    get:
+      summary: Get all coins
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: "#/definitions/CoinsResponse"
+      operationId: get-coins
+      tags:
+        - Coins
+    post:
+      summary: Add a coin
+      operationId: add-coin
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: "#/definitions/Coin"
+        "409":
+          description: Conflict
+          schema:
+            type: object
+            properties: {}
+      tags:
+        - Coins
+    parameters: []
+  /ticker/:
+    get:
+      summary: Get coin details
+      tags:
+        - Coins
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: "#/definitions/CoinResponse"
+        "404":
+          description: Not Found
+          schema:
+            type: object
+            properties: {}
+      operationId: get-coin
+      parameters:
+        - type: string
+          in: query
+          name: id
+    parameters: []
+    put:
+      summary: Update a coin
+      operationId: update-coin
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: "#/definitions/Coin"
+        "404":
+          description: Not Found
+          schema:
+            type: object
+            properties: {}
+      tags:
+        - Coins
+      parameters:
+        - type: string
+          in: query
+          name: id
+    delete:
+      summary: Delete a coin
+      operationId: delete-coin
+      responses:
+        "200":
+          description: OK
+        "404":
+          description: Not Found
+          schema:
+            type: object
+            properties: {}
+      tags:
+        - Coins
+      parameters:
+        - type: string
+          in: query
+          name: id
+definitions:
+  Coin:
+    description: ""
+    type: object
+    properties:
+      id:
+        type: string
+        minLength: 1
+      symbol:
+        type: string
+        minLength: 1
+      name:
+        type: string
+        minLength: 1
+      nameid:
+        type: string
+        minLength: 1
+      rank:
+        type: number
+      price_usd:
+        type: string
+        minLength: 1
+      percent_change_24h:
+        type: string
+        minLength: 1
+      percent_change_1h:
+        type: string
+        minLength: 1
+      percent_change_7d:
+        type: string
+        minLength: 1
+      market_cap_usd:
+        type: string
+        minLength: 1
+      volume24:
+        type: string
+        minLength: 1
+      volume24_native:
+        type: string
+        minLength: 1
+      csupply:
+        type: string
+        minLength: 1
+      price_btc:
+        type: string
+        minLength: 1
+      tsupply:
+        type: string
+        minLength: 1
+      msupply:
+        type: string
+        minLength: 1
+    required:
+      - id
+      - symbol
+      - name
+      - nameid
+      - rank
+      - price_usd
+      - percent_change_24h
+      - percent_change_1h
+      - percent_change_7d
+      - market_cap_usd
+      - volume24
+      - volume24_native
+      - csupply
+      - price_btc
+      - tsupply
+      - msupply
+  CoinResponse:
+    type: array
+    description: ""
+    minItems: 1
+    uniqueItems: true
+    items:
+      $ref: "#/definitions/Coin"
+  CoinsResponse:
+    description: ""
+    type: object
+    properties:
+      data:
+        type: array
+        uniqueItems: true
+        minItems: 1
+        items:
+          $ref: "#/definitions/Coin"
+      info:
+        type: object
+        required:
+          - coins_num
+          - time
+        properties:
+          coins_num:
+            type: number
+          time:
+            type: number
+    required:
+      - data
+      - info
+tags:
+  - name: Coins
+basePath: /api
