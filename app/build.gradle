@@ -52,6 +52,10 @@ dependencies {
     implementation("com.squareup.moshi:moshi:$moshi_version")
     kapt("com.squareup.moshi:moshi-kotlin-codegen:$moshi_version")
 
+    def room_version = "2.2.6"
+    implementation "androidx.room:room-runtime:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
+
     def eventbus_version = "3.1.1"
     implementation "org.greenrobot:eventbus:$eventbus_version"
 

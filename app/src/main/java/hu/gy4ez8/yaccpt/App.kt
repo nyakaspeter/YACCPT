@@ -1,6 +1,7 @@
 package hu.gy4ez8.yaccpt
 
 import android.app.Application
+import hu.gy4ez8.yaccpt.database.DatabaseModule
 import hu.gy4ez8.yaccpt.ui.UIModule
 
 class App : Application() {
@@ -8,6 +9,9 @@ class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        injector = DaggerAppComponent.builder().uIModule(UIModule(this)).build()
+        injector = DaggerAppComponent.builder()
+            .uIModule(UIModule(this))
+            .databaseModule(DatabaseModule(this))
+            .build()
     }
 }

@@ -1,13 +1,14 @@
 package hu.gy4ez8.yaccpt.interactor.coins
 
 import android.util.Log
+import hu.gy4ez8.yaccpt.database.CoinDatabase
 import hu.gy4ez8.yaccpt.interactor.coins.event.GetCoinDetailsEvent
 import hu.gy4ez8.yaccpt.interactor.coins.event.GetCoinsEvent
 import hu.gy4ez8.yaccpt.network.CoinsApi
 import org.greenrobot.eventbus.EventBus
 import javax.inject.Inject
 
-class CoinsInteractor @Inject constructor(private var coinsApi: CoinsApi){
+class CoinsInteractor @Inject constructor(private var coinsApi: CoinsApi, private var coinDatabase: CoinDatabase){
     fun getCoins() {
         val event = GetCoinsEvent()
 
@@ -19,11 +20,18 @@ class CoinsInteractor @Inject constructor(private var coinsApi: CoinsApi){
             if (response.code() != 200) {
                 throw Exception("Result code is not 200")
             }
+
+            coinDatabase.coinDao().deleteAllCoins()
+            for (coin in response.body()?.data!!) {
+                coinDatabase.coinDao().insertCoin(coin)
+            }
+
             event.code = response.code()
             event.coins = response.body()?.data
             EventBus.getDefault().post(event)
         } catch (e: Exception) {
-            event.throwable = e
+            //event.throwable = e
+            event.coins = coinDatabase.coinDao().getAllCoins()
             EventBus.getDefault().post(event)
         }
     }
@@ -43,7 +51,8 @@ class CoinsInteractor @Inject constructor(private var coinsApi: CoinsApi){
             event.coin = response.body()?.get(0)
             EventBus.getDefault().post(event)
         } catch (e: Exception) {
-            event.throwable = e
+            //event.throwable = e
+            event.coin = coinDatabase.coinDao().getCoin(id)
             EventBus.getDefault().post(event)
         }
     }

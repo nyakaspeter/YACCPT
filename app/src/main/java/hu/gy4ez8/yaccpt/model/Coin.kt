@@ -6,9 +6,10 @@
 
 package hu.gy4ez8.yaccpt.model
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
-import java.math.BigDecimal
 
 /**
  * 
@@ -29,13 +30,15 @@ import java.math.BigDecimal
  * @property tsupply
  * @property msupply
  */
+
+@Entity
 @JsonClass(generateAdapter = true)
 data class Coin(
-    @Json(name = "id") @field:Json(name = "id") var id: String,
+    @PrimaryKey @Json(name = "id") @field:Json(name = "id") var id: String,
     @Json(name = "symbol") @field:Json(name = "symbol") var symbol: String?,
     @Json(name = "name") @field:Json(name = "name") var name: String?,
     @Json(name = "nameid") @field:Json(name = "nameid") var nameid: String? = null,
-    @Json(name = "rank") @field:Json(name = "rank") var rank: BigDecimal? = null,
+    @Json(name = "rank") @field:Json(name = "rank") var rank: Int? = null,
     @Json(name = "price_usd") @field:Json(name = "price_usd") var priceUsd: String? = null,
     @Json(name = "percent_change_24h") @field:Json(name = "percent_change_24h") var percentChange24h: String? = null,
     @Json(name = "percent_change_1h") @field:Json(name = "percent_change_1h") var percentChange1h: String? = null,
