@@ -18,7 +18,7 @@
 
     <androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/coins"
+        android:id="@+id/coin_list"
         android:name="hu.gy4ez8.yaccpt.CoinsFragment"
         android:layout_width="@dimen/item_width"
         android:layout_height="match_parent"
@@ -26,12 +26,11 @@
         android:layout_marginRight="16dp"
         app:layoutManager="LinearLayoutManager"
         tools:context=".ui.coins.CoinsActivity"
-        tools:listitem="@layout/coins_content" />
+        tools:listitem="@layout/coin_list_item" />
 
-    <FrameLayout
+    <androidx.core.widget.NestedScrollView
         android:id="@+id/coin_details_container"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="3" />
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </LinearLayout>

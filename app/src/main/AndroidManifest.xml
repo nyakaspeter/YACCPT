@@ -23,7 +23,7 @@
         </activity>
         <activity
             android:name="hu.gy4ez8.yaccpt.ui.details.DetailsActivity"
-            android:label="@string/title_item_detail"
+            android:label="@string/details_activity_title"
             android:parentActivityName="hu.gy4ez8.yaccpt.ui.coins.CoinsActivity"
             android:theme="@style/Theme.YACCPT.NoActionBar">
             <meta-data

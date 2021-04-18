@@ -25,8 +25,8 @@ class CoinsActivity : AppCompatActivity(), CoinsScreen {
         injector.inject(this)
 
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        toolbar.title = getString(R.string.coins_activity_title)
         setSupportActionBar(toolbar)
-        toolbar.title = title
 
         if (findViewById<NestedScrollView>(R.id.coin_details_container) != null) {
             twoPane = true
@@ -46,7 +46,7 @@ class CoinsActivity : AppCompatActivity(), CoinsScreen {
     }
 
     override fun showCoins(coins: List<Coin>?) {
-        val recyclerView : RecyclerView = findViewById(R.id.coins)
+        val recyclerView : RecyclerView = findViewById(R.id.coin_list)
         recyclerView.adapter = CoinsAdapter(this, coins!!, twoPane)
     }
 

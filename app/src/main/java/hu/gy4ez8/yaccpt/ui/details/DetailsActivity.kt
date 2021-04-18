@@ -12,7 +12,7 @@ class DetailsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_details)
-        setSupportActionBar(findViewById(R.id.detail_toolbar))
+        setSupportActionBar(findViewById(R.id.toolbar))
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
@@ -20,8 +20,8 @@ class DetailsActivity : AppCompatActivity() {
             val fragment = DetailsFragment().apply {
                 arguments = Bundle().apply {
                     putString(
-                        DetailsFragment.COIN_ID,
-                            intent.getStringExtra(DetailsFragment.COIN_ID))
+                        DetailsFragment.ARG_COIN_ID,
+                            intent.getStringExtra(DetailsFragment.ARG_COIN_ID))
                 }
             }
 

@@ -29,7 +29,7 @@ class CoinsAdapter constructor(
             if (twoPane) {
                 val fragment = DetailsFragment().apply {
                     arguments = Bundle().apply {
-                        putString(DetailsFragment.COIN_ID, coin.id)
+                        putString(DetailsFragment.ARG_COIN_ID, coin.id)
                     }
                 }
                 (context as CoinsActivity).supportFragmentManager
@@ -38,7 +38,7 @@ class CoinsAdapter constructor(
                     .commit()
             } else {
                 val intent = Intent(v.context, DetailsActivity::class.java).apply {
-                    putExtra(DetailsFragment.COIN_ID, coin.id)
+                    putExtra(DetailsFragment.ARG_COIN_ID, coin.id)
                 }
                 v.context.startActivity(intent)
             }
@@ -46,7 +46,7 @@ class CoinsAdapter constructor(
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ViewHolder {
-        val itemView = LayoutInflater.from(context).inflate(R.layout.coins_content, viewGroup, false)
+        val itemView = LayoutInflater.from(context).inflate(R.layout.coin_list_item, viewGroup, false)
         return ViewHolder(itemView)
     }
 
@@ -66,8 +66,8 @@ class CoinsAdapter constructor(
     override fun getItemCount() = coins.size
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val image: ImageView = view.findViewById(R.id.coins_content_image)
-        val name: TextView = view.findViewById(R.id.coins_content_name)
-        val price: TextView = view.findViewById(R.id.coins_content_price)
+        val image: ImageView = view.findViewById(R.id.coin_list_item_image)
+        val name: TextView = view.findViewById(R.id.coin_list_item_name)
+        val price: TextView = view.findViewById(R.id.coins_list_item_price)
     }
 }

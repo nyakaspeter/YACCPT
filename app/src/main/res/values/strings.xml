@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">YACCPT</string>
-    <string name="title_item_detail">Item Detail</string>
+    <string name="coins_activity_title">Top Cryptocurrencies</string>
+    <string name="details_activity_title">Cryptocurrency Details</string>
 </resources>

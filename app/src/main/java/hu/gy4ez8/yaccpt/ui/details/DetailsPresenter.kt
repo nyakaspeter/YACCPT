@@ -25,9 +25,9 @@ class DetailsPresenter @Inject constructor(private val executor: Executor, priva
         super.detachScreen()
     }
 
-    fun refreshCoin() {
+    fun refreshCoin(id: String) {
         executor.execute {
-            coinsInteractor.getCoinDetails("90")
+            coinsInteractor.getCoinDetails(id)
         }
     }
 
