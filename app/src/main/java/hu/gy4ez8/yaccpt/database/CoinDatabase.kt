@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import hu.gy4ez8.yaccpt.model.Coin
 
-@Database(entities = [Coin::class], version = 1)
+@Database(entities = [Coin::class], version = 1, exportSchema = false)
 abstract class CoinDatabase : RoomDatabase() {
     abstract fun coinDao(): CoinDAO
     companion object {

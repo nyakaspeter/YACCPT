@@ -1,9 +1,7 @@
 package hu.gy4ez8.yaccpt
 
 
-import org.robolectric.RuntimeEnvironment
-import org.robolectric.shadows.ShadowLog
-
+/*
 val testInjector: TestComponent
     get() {
         ShadowLog.stream = System.out
@@ -13,3 +11,4 @@ val testInjector: TestComponent
         return component
     }
 
+*/
