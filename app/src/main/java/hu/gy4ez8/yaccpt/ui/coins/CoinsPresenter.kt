@@ -23,7 +23,7 @@ class CoinsPresenter @Inject constructor(private val executor: Executor, private
 
     fun refreshCoins() {
         executor.execute {
-            //coinsInteractor.getCoins()
+            coinsInteractor.getCoins()
         }
     }
 

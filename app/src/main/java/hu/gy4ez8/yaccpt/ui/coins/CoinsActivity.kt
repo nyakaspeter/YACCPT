@@ -4,8 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.widget.NestedScrollView
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
+import androidx.recyclerview.widget.RecyclerView
 import hu.gy4ez8.yaccpt.R
 import hu.gy4ez8.yaccpt.injector
 import hu.gy4ez8.yaccpt.model.Coin
@@ -29,21 +28,16 @@ class CoinsActivity : AppCompatActivity(), CoinsScreen {
         setSupportActionBar(toolbar)
         toolbar.title = title
 
-        findViewById<FloatingActionButton>(R.id.fab).setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
-        }
-
-        if (findViewById<NestedScrollView>(R.id.item_detail_container) != null) {
+        if (findViewById<NestedScrollView>(R.id.coin_details_container) != null) {
             twoPane = true
         }
-
-        //findViewById(R.id.item_list).adapter = SimpleItemRecyclerViewAdapter(this, DummyContent.ITEMS, twoPane)
     }
 
     override fun onStart() {
         super.onStart()
         coinsPresenter.attachScreen(this)
+
+        coinsPresenter.refreshCoins()
     }
 
     override fun onStop() {
@@ -52,7 +46,8 @@ class CoinsActivity : AppCompatActivity(), CoinsScreen {
     }
 
     override fun showCoins(coins: List<Coin>?) {
-        TODO("Not yet implemented")
+        val recyclerView : RecyclerView = findViewById(R.id.coins)
+        recyclerView.adapter = CoinsAdapter(this, coins!!, twoPane)
     }
 
     override fun showNetworkError(errorMsg: String) {

@@ -48,6 +48,6 @@ class DetailsFragment : Fragment(), DetailsScreen {
     }
 
     companion object {
-        const val ARG_ITEM_ID = "item_id"
+        const val COIN_ID = "90"
     }
 }

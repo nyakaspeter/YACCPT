@@ -1,16 +1,49 @@
 package hu.gy4ez8.yaccpt.ui.coins
 
 import android.content.Context
+import android.content.Intent
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import hu.gy4ez8.yaccpt.R
 import hu.gy4ez8.yaccpt.model.Coin
+import hu.gy4ez8.yaccpt.network.NetworkConfig.CRYPTO_ICON_API_ENDPOINT_ADDRESS
+import hu.gy4ez8.yaccpt.ui.details.DetailsActivity
+import hu.gy4ez8.yaccpt.ui.details.DetailsFragment
 
 class CoinsAdapter constructor(
     private val context: Context,
-    private var coins: List<Coin>) : RecyclerView.Adapter<CoinsAdapter.ViewHolder>() {
+    private var coins: List<Coin>,
+    private val twoPane: Boolean) : RecyclerView.Adapter<CoinsAdapter.ViewHolder>() {
+
+    private val onClickListener: View.OnClickListener
+
+    init {
+        onClickListener = View.OnClickListener { v ->
+            val coin = v.tag as Coin
+            if (twoPane) {
+                val fragment = DetailsFragment().apply {
+                    arguments = Bundle().apply {
+                        putString(DetailsFragment.COIN_ID, coin.id)
+                    }
+                }
+                (context as CoinsActivity).supportFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.coin_details_container, fragment)
+                    .commit()
+            } else {
+                val intent = Intent(v.context, DetailsActivity::class.java).apply {
+                    putExtra(DetailsFragment.COIN_ID, coin.id)
+                }
+                v.context.startActivity(intent)
+            }
+        }
+    }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ViewHolder {
         val itemView = LayoutInflater.from(context).inflate(R.layout.coins_content, viewGroup, false)
@@ -18,23 +51,23 @@ class CoinsAdapter constructor(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        /*
-        val coins = coins[position]
+        val coin = coins[position]
 
-        artist.images?.let {
-            val images = artist.images!!
-            if (images.isNotEmpty()) {
-                Glide.with(context).load(images[0].url).into(holder.ivImage)
-            }
+        Glide.with(context).load(CRYPTO_ICON_API_ENDPOINT_ADDRESS + coin.symbol!!.toLowerCase()).into(holder.image)
+        holder.name.text = coin.name
+        holder.price.text = "$" + coin.priceUsd
+
+        with(holder.itemView) {
+            tag = coin
+            setOnClickListener(onClickListener)
         }
-
-        holder.tvName.text = artist.name
-        holder.tvPopularity.text = artist.popularity!!.toString()
-         */
     }
 
     override fun getItemCount() = coins.size
 
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val image: ImageView = view.findViewById(R.id.coins_content_image)
+        val name: TextView = view.findViewById(R.id.coins_content_name)
+        val price: TextView = view.findViewById(R.id.coins_content_price)
     }
 }

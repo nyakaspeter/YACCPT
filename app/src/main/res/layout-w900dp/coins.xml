@@ -18,8 +18,8 @@
 
     <androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/item_list"
-        android:name="hu.gy4ez8.yaccpt.ItemListFragment"
+        android:id="@+id/coins"
+        android:name="hu.gy4ez8.yaccpt.CoinsFragment"
         android:layout_width="@dimen/item_width"
         android:layout_height="match_parent"
         android:layout_marginLeft="16dp"
@@ -29,7 +29,7 @@
         tools:listitem="@layout/coins_content" />
 
     <FrameLayout
-        android:id="@+id/item_detail_container"
+        android:id="@+id/coin_details_container"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="3" />

@@ -13,17 +13,21 @@ import javax.inject.Inject
 class DetailsPresenter @Inject constructor(private val executor: Executor, private val coinsInteractor: CoinsInteractor) : Presenter<DetailsScreen>() {
     override fun attachScreen(screen: DetailsScreen) {
         super.attachScreen(screen)
-        EventBus.getDefault().register(this)
+        if (!EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().register(this);
+        }
     }
 
     override fun detachScreen() {
-        EventBus.getDefault().unregister(this)
+        if (EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().unregister(this);
+        }
         super.detachScreen()
     }
 
     fun refreshCoin() {
         executor.execute {
-            //coinsInteractor.getCoin()
+            coinsInteractor.getCoinDetails("90")
         }
     }
 
