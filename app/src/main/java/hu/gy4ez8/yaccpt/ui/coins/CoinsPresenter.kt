@@ -32,14 +32,12 @@ class CoinsPresenter @Inject constructor(private val executor: Executor, private
         if (event.throwable != null) {
             event.throwable?.printStackTrace()
             if (screen != null) {
-                screen?.showNetworkError(event.throwable?.message.orEmpty())
+                screen?.showNetworkError()
             }
-        } else {
-            if (screen != null) {
-                if (event.coins != null) {
-                    screen?.showCoins(event.coins as MutableList<Coin>)
-                }
-            }
+        }
+
+        if (screen != null && event.coins != null) {
+            screen?.showCoins(event.coins as MutableList<Coin>)
         }
     }
 }

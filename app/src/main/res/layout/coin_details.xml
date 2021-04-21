@@ -1,18 +1,148 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/coin_details"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.details.DetailsFragment" >
 
-    <TextView
-        android:id="@+id/coin_details_name"
-        style="?android:attr/textAppearanceLarge"
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/coin_details_layout"
+        android:visibility="invisible"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="16dp"
-        android:textIsSelectable="true" />
+        android:gravity="center_horizontal">
 
-</LinearLayout>
+        <ImageView
+            android:id="@+id/coin_details_image"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_marginVertical="32dp"
+            android:scaleType="fitXY" />
+
+        <TextView
+            android:id="@+id/coin_details_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textIsSelectable="true"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"/>
+
+        <TextView
+            android:id="@+id/coin_details_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textIsSelectable="true"
+            android:textStyle="bold"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"/>
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="32dp"
+            android:rowCount="5"
+            android:columnCount="2">
+
+            <TextView
+                android:layout_row="0"
+                android:layout_column="0"
+                android:layout_columnWeight="1"
+                android:layout_marginBottom="8dp"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                android:textSize="16sp"
+                android:text="Change (1h)" />
+
+            <TextView
+                android:id="@+id/coin_details_price_change_1h"
+                android:layout_row="0"
+                android:layout_column="1"
+                android:layout_columnWeight="1"
+                android:layout_marginBottom="8dp"
+                android:textAlignment="textEnd"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+
+            <TextView
+                android:layout_row="1"
+                android:layout_column="0"
+                android:layout_columnWeight="1"
+                android:layout_marginBottom="8dp"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                android:textSize="16sp"
+                android:text="Change (24h)" />
+
+            <TextView
+                android:id="@+id/coin_details_price_change_24h"
+                android:layout_row="1"
+                android:layout_column="1"
+                android:layout_columnWeight="1"
+                android:layout_marginBottom="8dp"
+                android:textAlignment="textEnd"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+
+            <TextView
+                android:layout_row="2"
+                android:layout_column="0"
+                android:layout_columnWeight="1"
+                android:layout_marginBottom="8dp"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                android:textSize="16sp"
+                android:text="Change (7d)" />
+
+            <TextView
+                android:id="@+id/coin_details_price_change_7d"
+                android:layout_row="2"
+                android:layout_column="1"
+                android:layout_columnWeight="1"
+                android:layout_marginBottom="8dp"
+                android:textAlignment="textEnd"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+
+            <TextView
+                android:layout_row="3"
+                android:layout_column="0"
+                android:layout_columnWeight="1"
+                android:layout_marginBottom="8dp"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                android:textSize="16sp"
+                android:text="Volume (24h)" />
+
+            <TextView
+                android:id="@+id/coin_details_volume_24h"
+                android:layout_row="3"
+                android:layout_column="1"
+                android:layout_columnWeight="1"
+                android:layout_marginBottom="8dp"
+                android:textAlignment="textEnd"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+
+            <TextView
+                android:layout_row="4"
+                android:layout_column="0"
+                android:layout_columnWeight="1"
+                android:layout_marginBottom="8dp"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                android:textSize="16sp"
+                android:text="Market cap" />
+
+            <TextView
+                android:id="@+id/coin_details_market_cap"
+                android:layout_row="4"
+                android:layout_column="1"
+                android:layout_columnWeight="1"
+                android:layout_marginBottom="8dp"
+                android:textAlignment="textEnd"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+
+        </GridLayout>
+
+    </LinearLayout>
+
+    </ScrollView>
+
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

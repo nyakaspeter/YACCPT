@@ -30,7 +30,7 @@ class CoinsInteractor @Inject constructor(private var coinsApi: CoinsApi, privat
             event.coins = response.body()?.data
             EventBus.getDefault().post(event)
         } catch (e: Exception) {
-            //event.throwable = e
+            event.throwable = e
             event.coins = coinDatabase.coinDao().getAllCoins()
             EventBus.getDefault().post(event)
         }
@@ -51,7 +51,7 @@ class CoinsInteractor @Inject constructor(private var coinsApi: CoinsApi, privat
             event.coin = response.body()?.get(0)
             EventBus.getDefault().post(event)
         } catch (e: Exception) {
-            //event.throwable = e
+            event.throwable = e
             event.coin = coinDatabase.coinDao().getCoin(id)
             EventBus.getDefault().post(event)
         }

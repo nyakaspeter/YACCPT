@@ -36,14 +36,12 @@ class DetailsPresenter @Inject constructor(private val executor: Executor, priva
         if (event.throwable != null) {
             event.throwable?.printStackTrace()
             if (screen != null) {
-                screen?.showNetworkError(event.throwable?.message.orEmpty())
+                screen?.showNetworkError()
             }
-        } else {
-            if (screen != null) {
-                if (event.coin != null) {
-                    screen?.showCoin(event.coin as Coin)
-                }
-            }
+        }
+
+        if (screen != null && event.coin != null) {
+            screen?.showCoin(event.coin as Coin)
         }
     }
 }

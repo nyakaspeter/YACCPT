@@ -4,8 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginLeft="16dp"
-    android:layout_marginRight="16dp"
     android:baselineAligned="false"
     android:divider="?android:attr/dividerHorizontal"
     android:orientation="horizontal"
@@ -16,19 +14,25 @@
     This layout is a two-pane layout for the Items master/detail flow.
     -->
 
-    <androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/coin_list"
-        android:name="hu.gy4ez8.yaccpt.CoinsFragment"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/coin_list_swipe_container"
         android:layout_width="@dimen/item_width"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        app:layoutManager="LinearLayoutManager"
-        tools:context=".ui.coins.CoinsActivity"
-        tools:listitem="@layout/coin_list_item" />
+        android:layout_height="match_parent">
 
-    <androidx.core.widget.NestedScrollView
+        <androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/coin_list"
+            android:name="hu.gy4ez8.yaccpt.CoinsFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layoutManager="LinearLayoutManager"
+            tools:context=".ui.coins.CoinsActivity"
+            tools:listitem="@layout/coin_list_item" />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <FrameLayout
         android:id="@+id/coin_details_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

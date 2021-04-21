@@ -18,8 +18,9 @@ import hu.gy4ez8.yaccpt.ui.details.DetailsFragment
 
 class CoinsAdapter constructor(
     private val context: Context,
-    private var coins: List<Coin>,
-    private val twoPane: Boolean) : RecyclerView.Adapter<CoinsAdapter.ViewHolder>() {
+    private var coins: MutableList<Coin>,
+    private val twoPane: Boolean
+) : RecyclerView.Adapter<CoinsAdapter.ViewHolder>() {
 
     private val onClickListener: View.OnClickListener
 
@@ -46,7 +47,11 @@ class CoinsAdapter constructor(
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ViewHolder {
-        val itemView = LayoutInflater.from(context).inflate(R.layout.coin_list_item, viewGroup, false)
+        val itemView = LayoutInflater.from(context).inflate(
+            R.layout.coin_list_item,
+            viewGroup,
+            false
+        )
         return ViewHolder(itemView)
     }
 
@@ -64,6 +69,16 @@ class CoinsAdapter constructor(
     }
 
     override fun getItemCount() = coins.size
+
+    fun clear() {
+        coins.clear()
+        notifyDataSetChanged()
+    }
+
+    fun addAll(list: Collection<Coin>) {
+        coins.addAll(list)
+        notifyDataSetChanged()
+    }
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val image: ImageView = view.findViewById(R.id.coin_list_item_image)

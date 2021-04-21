@@ -21,8 +21,21 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
+    <RelativeLayout
+        android:id="@+id/coin_list_loading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center" >
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="true" />
+    </RelativeLayout>
+
     <FrameLayout
-        android:id="@+id/frameLayout"
+        android:id="@+id/coin_list_layout"
+        android:visibility="invisible"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">

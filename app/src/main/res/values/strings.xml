@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">YACCPT</string>
+    <string name="app_version">v0.1</string>
     <string name="coins_activity_title">Top Cryptocurrencies</string>
     <string name="details_activity_title">Cryptocurrency Details</string>
+    <string name="about_activity_title">App Info</string>
 </resources>
