@@ -67,9 +67,9 @@ class CoinsActivity : AppCompatActivity(), CoinsScreen {
         coinsPresenter.detachScreen()
     }
 
-    override fun showCoins(newCoins: List<Coin>?) {
+    override fun showCoins(coins: List<Coin>?) {
         coinsAdapter.clear()
-        coinsAdapter.addAll(newCoins!!)
+        coinsAdapter.addAll(coins!!)
         swipeContainer.isRefreshing = false
 
         findViewById<RelativeLayout>(R.id.coin_list_loading).visibility = View.GONE

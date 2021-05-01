@@ -5,6 +5,7 @@ import hu.gy4ez8.yaccpt.model.CoinResponse
 import hu.gy4ez8.yaccpt.model.CoinsResponse
 import hu.gy4ez8.yaccpt.model.CoinsResponseInfo
 import hu.gy4ez8.yaccpt.network.CoinsApi
+import hu.gy4ez8.yaccpt.utils.mock
 import okhttp3.Request
 import okio.Timeout
 import retrofit2.Call
@@ -14,7 +15,11 @@ import java.io.IOException
 import java.math.BigDecimal
 
 class MockCoinsApi : CoinsApi {
-    private var coins: MutableList <Coin> = mutableListOf(
+    companion object {
+        var shouldFail = false
+    }
+
+    private var coins: MutableList<Coin> = mutableListOf(
         Coin("1", "btc", "bitcoin"),
         Coin("2", "eth", "ethereum"),
         Coin("3", "xrp", "ripple")
@@ -26,7 +31,7 @@ class MockCoinsApi : CoinsApi {
         return object : Call<Coin> {
             @Throws(IOException::class)
             override fun execute(): Response<Coin> {
-                return Response.success(coin!!)
+                return Response.success(coin)
             }
 
             override fun enqueue(callback: Callback<Coin>) {
@@ -105,8 +110,8 @@ class MockCoinsApi : CoinsApi {
 
         return object : Call<CoinResponse> {
             @Throws(IOException::class)
-            override fun execute(): Response<CoinResponse> {
-                return Response.success(response)
+            override fun execute(): Response<CoinResponse?> {
+                return if (!shouldFail) Response.success(response) else Response.error(500, mock())
             }
 
             override fun enqueue(callback: Callback<CoinResponse>) {
@@ -140,12 +145,18 @@ class MockCoinsApi : CoinsApi {
     }
 
     override fun getCoins(): Call<CoinsResponse> {
-        val response = CoinsResponse(coins, CoinsResponseInfo(BigDecimal(coins.size), BigDecimal(1234)))
+        val response = CoinsResponse(
+            coins, CoinsResponseInfo(
+                BigDecimal(coins.size), BigDecimal(
+                    1234
+                )
+            )
+        )
 
         return object : Call<CoinsResponse> {
             @Throws(IOException::class)
-            override fun execute(): Response<CoinsResponse> {
-                return Response.success(response)
+            override fun execute(): Response<CoinsResponse?> {
+                return if (!shouldFail) Response.success(response) else Response.error(500, mock())
             }
 
             override fun enqueue(callback: Callback<CoinsResponse>) {
@@ -186,7 +197,7 @@ class MockCoinsApi : CoinsApi {
         return object : Call<Coin> {
             @Throws(IOException::class)
             override fun execute(): Response<Coin> {
-                return Response.success(coin!!)
+                return Response.success(coin)
             }
 
             override fun enqueue(callback: Callback<Coin>) {
