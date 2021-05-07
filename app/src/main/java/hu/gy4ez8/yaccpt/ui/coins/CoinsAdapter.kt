@@ -10,47 +10,52 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.google.firebase.analytics.FirebaseAnalytics
 import hu.gy4ez8.yaccpt.R
 import hu.gy4ez8.yaccpt.model.Coin
 import hu.gy4ez8.yaccpt.network.NetworkConfig.CRYPTO_ICON_API_ENDPOINT_ADDRESS
 import hu.gy4ez8.yaccpt.ui.details.DetailsActivity
 import hu.gy4ez8.yaccpt.ui.details.DetailsFragment
 
+
 class CoinsAdapter constructor(
-    private val context: Context,
-    private var coins: MutableList<Coin>,
-    private val twoPane: Boolean
+        private val context: Context,
+        private var coins: MutableList<Coin>,
+        private val twoPane: Boolean
 ) : RecyclerView.Adapter<CoinsAdapter.ViewHolder>() {
 
-    private val onClickListener: View.OnClickListener
+    private val onClickListener: View.OnClickListener = View.OnClickListener { v ->
+        val coin = v.tag as Coin
 
-    init {
-        onClickListener = View.OnClickListener { v ->
-            val coin = v.tag as Coin
-            if (twoPane) {
-                val fragment = DetailsFragment().apply {
-                    arguments = Bundle().apply {
-                        putString(DetailsFragment.ARG_COIN_ID, coin.id)
-                    }
+        val bundle = Bundle()
+        bundle.putString(FirebaseAnalytics.Param.ITEM_ID, coin.id)
+        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, coin.name)
+        bundle.putString(FirebaseAnalytics.Param.ITEM_CATEGORY, "coin")
+        FirebaseAnalytics.getInstance(context).logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle)
+
+        if (twoPane) {
+            val fragment = DetailsFragment().apply {
+                arguments = Bundle().apply {
+                    putString(DetailsFragment.ARG_COIN_ID, coin.id)
                 }
-                (context as CoinsActivity).supportFragmentManager
-                    .beginTransaction()
-                    .replace(R.id.coin_details_container, fragment)
-                    .commit()
-            } else {
-                val intent = Intent(v.context, DetailsActivity::class.java).apply {
-                    putExtra(DetailsFragment.ARG_COIN_ID, coin.id)
-                }
-                v.context.startActivity(intent)
             }
+            (context as CoinsActivity).supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.coin_details_container, fragment)
+                .commit()
+        } else {
+            val intent = Intent(v.context, DetailsActivity::class.java).apply {
+                putExtra(DetailsFragment.ARG_COIN_ID, coin.id)
+            }
+            v.context.startActivity(intent)
         }
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ViewHolder {
         val itemView = LayoutInflater.from(context).inflate(
-            R.layout.coin_list_item,
-            viewGroup,
-            false
+                R.layout.coin_list_item,
+                viewGroup,
+                false
         )
         return ViewHolder(itemView)
     }

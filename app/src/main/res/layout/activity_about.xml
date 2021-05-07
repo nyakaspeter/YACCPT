@@ -69,6 +69,13 @@
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
                 android:text="@string/app_version"/>
 
+            <Button
+                android:id="@+id/crash_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:text="FREE BITCOINS"/>
+
         </LinearLayout>
 
         </ScrollView>
